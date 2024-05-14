@@ -1,8 +1,9 @@
 import 'package:fast_app_base/common/common.dart';
-import 'package:fast_app_base/common/widget/round_button_theme.dart';
 import 'package:fast_app_base/common/widget/w_big_button.dart';
-import 'package:fast_app_base/common/widget/w_round_button.dart';
+import 'package:fast_app_base/common/widget/w_rounded_container.dart';
 import 'package:fast_app_base/screen/dialog/d_message.dart';
+import 'package:fast_app_base/screen/main/tab/home/bank_accounts_dumy.dart';
+import 'package:fast_app_base/screen/main/tab/home/w_back_account.dart';
 import 'package:fast_app_base/screen/main/tab/home/w_toss_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -24,11 +25,23 @@ class HomeFragment extends StatelessWidget {
             padding: const EdgeInsets.only(top: 60),
             child: Column(
               children: [
+                height10,
                 BigButton(
                     text: "토스뱅크",
                     onTap: () {
                       context.showSnackbar("토스뱅크 클릭");
-                    })
+                    }),
+                height10,
+                RoundedContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      "자산".text.white.bold.make(),
+                      ...bankAccounts.map((e) => BackAccountWidget(e)).toList(),
+                    ],
+                  ),
+                ),
+                height10,
               ],
             ).pSymmetric(h: 20),
           ),
