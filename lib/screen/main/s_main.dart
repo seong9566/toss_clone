@@ -38,6 +38,7 @@ class MainScreenState extends State<MainScreen>
 
   static double get bottomNavigationBarBorderRadius => 30.0;
 
+  static const double bottomNavigationBarHeight = 60;
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) async {
     delay(() {

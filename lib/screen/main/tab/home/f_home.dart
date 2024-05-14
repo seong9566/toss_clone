@@ -1,7 +1,9 @@
 import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/common/dart/extension/num_duration_extension.dart';
 import 'package:fast_app_base/common/widget/w_big_button.dart';
 import 'package:fast_app_base/common/widget/w_rounded_container.dart';
 import 'package:fast_app_base/screen/dialog/d_message.dart';
+import 'package:fast_app_base/screen/main/s_main.dart';
 import 'package:fast_app_base/screen/main/tab/home/bank_accounts_dumy.dart';
 import 'package:fast_app_base/screen/main/tab/home/w_back_account.dart';
 import 'package:fast_app_base/screen/main/tab/home/w_toss_app_bar.dart';
@@ -21,29 +23,39 @@ class HomeFragment extends StatelessWidget {
       color: Colors.black,
       child: Stack(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 60),
-            child: Column(
-              children: [
-                height10,
-                BigButton(
-                    text: "토스뱅크",
-                    onTap: () {
-                      context.showSnackbar("토스뱅크 클릭");
-                    }),
-                height10,
-                RoundedContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      "자산".text.white.bold.make(),
-                      ...bankAccounts.map((e) => BackAccountWidget(e)).toList(),
-                    ],
+          RefreshIndicator(
+            edgeOffset: TossAppBar.appBarHeight,
+            onRefresh: () async {
+              await sleepAsync(500.ms);
+            },
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(
+                  top: TossAppBar.appBarHeight,
+                  bottom: MainScreenState.bottomNavigationBarHeight),
+              child: Column(
+                children: [
+                  height10,
+                  BigButton(
+                      text: "토스뱅크",
+                      onTap: () {
+                        context.showSnackbar("토스뱅크 클릭");
+                      }),
+                  height10,
+                  RoundedContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        "자산".text.white.bold.make(),
+                        ...bankAccounts
+                            .map((e) => BackAccountWidget(e))
+                            .toList(),
+                      ],
+                    ),
                   ),
-                ),
-                height10,
-              ],
-            ).pSymmetric(h: 20),
+                  height10,
+                ],
+              ).pSymmetric(h: 20),
+            ),
           ),
           const TossAppBar(),
         ],
